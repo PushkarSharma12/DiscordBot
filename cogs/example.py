@@ -51,11 +51,11 @@ class Example(commands.Cog):
     async def hello(self,ctx):
         await ctx.send(f'Hello! {ctx.message.author.mention}')
     @commands.command()
-    @commands.has_permissions(administrator=True)
+    @commands.has_any_role('Moderator', 'Clapzy')
     async def kick(self,ctx, member : discord.Member, *, reason=None):
             try:
                 await member.kick(reason = reason)
-                await ctx.send(f'{member.name} has been banned.')
+                await ctx.send(f'{member.name} has been Kicked.')
             except Exception as error:
                 await ctx.send(error)
 
