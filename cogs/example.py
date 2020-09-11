@@ -52,12 +52,15 @@ class Example(commands.Cog):
         await ctx.send(f'Hello! {ctx.message.author.mention}')
     @commands.command()
     async def kick(self,ctx, member : discord.Member, *, reason=None):
-        #role = discord.utils.get(ctx.guild.roles, id=753530652279701546)
-        #if role in ctx.message.author.roles:
-            await member.kick(reason = reason)
-            await ctx.send(f"{member.name} Just got Kicked for {reason}")
-        #else:
-        #    await ctx.send("<access denied because of improper role message>")
+        if ctx.message.author.server_premission.administrator:
+            try:
+                await member.kick(reason = reason)
+                await ctx.send(f'{member.name} has been banned.')
+            except Exception as error:
+                await ctx.send(error)
+        else:
+            await ctx.send('Looks like you don\'t have the permiton.')
+
 
     @commands.command()
     async def ban(self,ctx, member : discord.Member, *, reason=None):
