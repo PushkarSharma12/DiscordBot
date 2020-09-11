@@ -51,15 +51,13 @@ class Example(commands.Cog):
     async def hello(self,ctx):
         await ctx.send(f'Hello! {ctx.message.author.mention}')
     @commands.command()
+    @commands.has_permissions(administrator=True)
     async def kick(self,ctx, member : discord.Member, *, reason=None):
-        if ctx.message.author.server_premission.administrator:
             try:
                 await member.kick(reason = reason)
                 await ctx.send(f'{member.name} has been banned.')
             except Exception as error:
                 await ctx.send(error)
-        else:
-            await ctx.send('Looks like you don\'t have the permiton.')
 
 
     @commands.command()
