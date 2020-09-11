@@ -18,10 +18,10 @@ async def load(ctx, extension):
 
 @client.command()
 async def unload(ctx, extension):
-    #role = discord.utils.get(ctx.guild.roles, id=753530652279701546)
-    #if role in ctx.message.author.roles:
-    client.unload_extension(f'cogs.{extension}')
-    await ctx.send("unloaded")
+    role = discord.utils.get(ctx.guild.roles, id=753530652279701546)
+    if role in ctx.message.author.roles:
+        client.unload_extension(f'cogs.{extension}')
+        await ctx.send("unloaded")
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):

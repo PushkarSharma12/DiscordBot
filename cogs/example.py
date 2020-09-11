@@ -52,21 +52,21 @@ class Example(commands.Cog):
         await ctx.send(f'Hello! {ctx.message.author.mention}')
     @commands.command()
     async def kick(self,ctx, member : discord.Member, *, reason=None):
-        role = discord.utils.get(ctx.guild.roles, id=753530652279701546)
-        if role in ctx.message.author.roles:
+        #role = discord.utils.get(ctx.guild.roles, id=753530652279701546)
+        #if role in ctx.message.author.roles:
             await member.kick(reason = reason)
             await ctx.send(f"{member.name} Just got Kicked for {reason}")
-        else:
-            await ctx.send("<access denied because of improper role message>")
+        #else:
+        #    await ctx.send("<access denied because of improper role message>")
 
     @commands.command()
     async def ban(self,ctx, member : discord.Member, *, reason=None):
-        role = discord.utils.get(ctx.guild.roles, id=753530652279701546)
-        if role in ctx.message.author.roles:
+        #role = discord.utils.get(ctx.guild.roles, id=753530652279701546)
+        #if role in ctx.message.author.roles:
             await member.ban(reason = reason)
             await ctx.send(f"{member.name} Just got Banned for {reason}")
-        else:
-            await ctx.send("Access denied because of improper role message!")
+        #else:
+         #   await ctx.send("Access denied because of improper role message!")
     @commands.command()
     async def clear(self, ctx, number=5):
         role = discord.utils.get(ctx.guild.roles, id=753530652279701546)
