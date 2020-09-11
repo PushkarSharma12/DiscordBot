@@ -55,44 +55,40 @@ class Example(commands.Cog):
     async def kick(self,ctx, member : discord.Member, *, reason=None):
             try:
                 await member.kick(reason = reason)
-                await ctx.send(f'{member.name} has been Kicked.')
+                await ctx.send(f'{member.name} has been Kicked for {reason}.')
             except Exception as error:
                 await ctx.send(error)
 
 
     @commands.command()
+    @commands.has_any_role('Moderator', 'Clapzy')
     async def ban(self,ctx, member : discord.Member, *, reason=None):
-        #role = discord.utils.get(ctx.guild.roles, id=753530652279701546)
-        #if role in ctx.message.author.roles:
+        try:
             await member.ban(reason = reason)
             await ctx.send(f"{member.name} Just got Banned for {reason}")
-        #else:
-         #   await ctx.send("Access denied because of improper role message!")
+        except Exception as error:
+                await ctx.send(error)
     @commands.command()
+    @commands.has_any_role('Moderator', 'Clapzy')
     async def clear(self, ctx, number=5):
-        role = discord.utils.get(ctx.guild.roles, id=753530652279701546)
-        if role in ctx.message.author.roles:
-            await ctx.channel.purge(limit=number)
-        else:
-            await ctx.send("Access denied because of improper role message!")
+        
+        await ctx.channel.purge(limit=number)
 
     @commands.command()
+    @commands.has_any_role('Moderator', 'Clapzy')
     async def unban(self,ctx, *, member):
         banned_users = await ctx.guild.bans()
         member_name, member_discriminator = member.split('#')
-        role = discord.utils.get(ctx.guild.roles, id=753530652279701546)
-        if role in ctx.message.author.roles:
-            for banned in banned_users:
-                user = banned.user
-                if (user.name, user.discriminator) == (member_name, member_discriminator):
-                    await ctx.guild.unban(user)
-                    message = "You just got Unbanned from ClapzyServer"
-                    await ctx.send(f'{user.mention} Just got Unbanned')
-                    return
-                else:
-                    await ctx.send(f'{member} is not Banned')
-        else:
-            await ctx.send("Access denied because of improper role message!")
+        for banned in banned_users:
+            user = banned.user
+            if (user.name, user.discriminator) == (member_name, member_discriminator):
+                await ctx.guild.unban(user)
+                message = "You just got Unbanned from ClapzyServer"
+                await ctx.send(f'{user.mention} Just got Unbanned')
+                return
+            else:
+                await ctx.send(f'{member} is not Banned')
+        
 
 def setup(client):
     client.add_cog(Example(client))
