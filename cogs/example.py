@@ -50,7 +50,11 @@ class Example(commands.Cog):
         await ctx.send(f'o/')
     @commands.command()
     async def hello(self,ctx):
-        await ctx.send(f'Hello! {ctx.message.author.mention}')
+        answers = ["Hello! {ctx.message.author.mention}",
+                    "Hello! You stupid child.",
+                    "Shut up moron!",
+                    "I'll beat you up!"]
+        await ctx.send(f'{random.choice(answers)}')
     @commands.command()
     @commands.has_any_role('Moderator', 'Clapzy')
     async def kick(self,ctx, member : discord.Member, *, reason=None):
