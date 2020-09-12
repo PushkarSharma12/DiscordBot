@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands,tasks
 from discord.ext.commands.errors import MissingRequiredArgument
 import random
 
@@ -10,8 +10,9 @@ class Example(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        await self.client.change_presence(status = discord.Status.idle, activity=discord.Game('Amoung Us'))
         print('Bot is ready!')
-    
+
     @commands.command(aliases=["8ball","Ball","LuckyBall"])
     async def _8ball(self,ctx, *, question):
         responses = [ "It is certain.",
