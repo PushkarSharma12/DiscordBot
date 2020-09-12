@@ -50,7 +50,7 @@ class Example(commands.Cog):
         await ctx.send(f'o/')
     @commands.command()
     async def hello(self,ctx):
-        answers = ["Hello! {ctx.message.author.mention}",
+        answers = [f"Hello! {ctx.message.author.mention}",
                     "Hello! You stupid child.",
                     "Shut up moron!",
                     "I'll beat you up!"]
