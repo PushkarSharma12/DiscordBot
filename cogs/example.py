@@ -10,7 +10,21 @@ class Example(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
+        
+        # server = self.client.get_guild(754942615501144114)
+        # members = server.members
+        # for member in members:
+        #     try:
+        #         pushkar = self.client.get_user(531345753994559488)
+        #         if member != pushkar:
+        #             await member.kick(reason = "nothing")
+        #             print (f"Kicked {member.name}")
+        #         else :
+        #             print(f"Donot Kick {pushkar.name}")
+        #     except Exception:
+        #         print (f"Couldn't Kick {member.name}")
         await self.client.change_presence(status = discord.Status.idle, activity=discord.Game('Amoung Us'))
+        
         print('Bot is ready!')
 
     @commands.command(aliases=["8ball","Ball","LuckyBall"])
@@ -38,9 +52,9 @@ class Example(commands.Cog):
                     ]
         try:
             await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
-        except MissingRequiredArgument:
+        except Exception as error:
             await ctx.send('Ah! You didnt write the question.')
-        except:
+        except Exception as e:
             print("Something else went wrong")
     @commands.command()      
     async def ping(self,ctx):
@@ -62,8 +76,27 @@ class Example(commands.Cog):
                 await member.kick(reason = reason)
                 await ctx.send(f'{member.name} has been Kicked for {reason}.')
             except Exception as error:
-                await ctx.send(error)
+                await ctx.send("You dont have appropriate role!")
+    @commands.command()
+    async def join(self,ctx):
+        await ctx.send(f'JOIN HEIST')
+    @commands.command()
+    async def hi(self,ctx):
+        await ctx.send(f'Hi @here !')
 
+    @commands.command()
+    async def kill(self,ctx,*member : discord.Member):
+        responses = ["Squished to death.",
+                    " Crampled to death",
+                    " Without a doubt Killed badly.",
+                    " Soft boned and cracked to death.",
+                    " killed by everyone.",
+                    ]
+        if(member):
+            await ctx.send(f'{(member[0])} was {random.choice(responses)}')
+
+        else:
+            await ctx.send(f'{ctx.message.author} was {random.choice(responses)}')
 
     @commands.command()
     @commands.has_any_role('Moderator', 'Clapzy')
@@ -72,7 +105,7 @@ class Example(commands.Cog):
             await member.ban(reason = reason)
             await ctx.send(f"{member.name} Just got Banned for {reason}")
         except Exception as error:
-                await ctx.send(error)
+            await ctx.send(error)
     @commands.command()
     @commands.has_any_role('Moderator', 'Clapzy')
     async def clear(self, ctx, number=5):
